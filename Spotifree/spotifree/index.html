@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="green">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+<title>SpotiFree — Free YouTube Music</title>
+<meta name="description" content="100% free, no-login, no-ads music player powered by YouTube. Paste a playlist link and play." />
+<meta name="theme-color" content="#0a0a0a" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" href="assets/css/app.css" />
+</head>
+<body>
+
+<!-- ══════════════════ SVG ICON SPRITE ══════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<g id="s" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></g>
+</defs>
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+<symbol id="i-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15V6"/><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/><path d="M12 12H3"/><path d="M16 6H3"/><path d="M12 18H3"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10.6 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09A1.65 1.65 0 0 0 19.4 9H19a2 2 0 1 1 0 4h.09a1.65 1.65 0 0 0 1.51 1z"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l12.5-7.5z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4.2" height="16" rx="1.2"/><rect x="13.8" y="4" width="4.2" height="16" rx="1.2"/></symbol>
+<symbol id="i-prev" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5v14l-11-7z"/><rect x="3" y="5" width="2.6" height="14" rx="1"/></symbol>
+<symbol id="i-next" viewBox="0 0 24 24" fill="currentColor"><path d="M5 5v14l11-7z"/><rect x="18.4" y="5" width="2.6" height="14" rx="1"/></symbol>
+<symbol id="i-shuffle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></symbol>
+<symbol id="i-repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+<symbol id="i-repeat1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/><text x="12" y="15.5" font-size="8.5" font-family="system-ui,sans-serif" fill="currentColor" stroke="none" text-anchor="middle" font-weight="700">1</text></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol>
+<symbol id="i-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l8.84 8.84 8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+<symbol id="i-heart-fill" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l8.84 8.84 8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+<symbol id="i-list-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12H3"/><path d="M16 6H3"/><path d="M16 18H3"/><path d="M18 9v6"/><path d="M21 12h-6"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+<symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-merge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-4a2 2 0 0 1 2-2 2 2 0 0 1-2-2V7a2 2 0 0 0-2-2h-1"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2M12 20.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1.5 12h2M20.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></symbol>
+<symbol id="i-timer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M9.5 2.5h5"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+<symbol id="i-offline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+<symbol id="i-chev-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-trending" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+<symbol id="i-disc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2a10 10 0 0 1 10 10"/></symbol>
+<symbol id="i-grip" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".6" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".6" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".6" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+<symbol id="i-broom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3l-6 6"/><path d="M14 8l-5.5 5.5"/><path d="M9.5 13.5 4 19l1 1 5.5-5.5"/><path d="m6 15 3 3"/><path d="M4 21l8-8"/></symbol>
+<symbol id="i-install" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol>
+<symbol id="i-sort" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5h10"/><path d="M11 9h7"/><path d="M11 13h4"/><path d="M3 17l3 3 3-3"/><path d="M6 4v16"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M19 15l.9 2.1 2.1.9-2.1.9L19 21l-.9-2.1-2.1-.9 2.1-.9z"/></symbol>
+</svg>
+
+<!-- ══════════════════ SPLASH ══════════════════ -->
+<div id="splash">
+  <div class="splash-logo">
+    <svg viewBox="0 0 24 24" width="54" height="54" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15V6"/><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/><path d="M12 12H3"/><path d="M16 6H3"/><path d="M12 18H3"/></svg>
+  </div>
+  <div class="splash-name">SpotiFree</div>
+  <div class="splash-tag">Free music. No login. No ads.</div>
+  <div class="splash-bar"><i></i></div>
+</div>
+
+<!-- ══════════════════ APP ══════════════════ -->
+<div id="app" hidden>
+
+  <!-- ── Sidebar (desktop) ── -->
+  <aside id="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15V6"/><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/><path d="M12 12H3"/><path d="M16 6H3"/><path d="M12 18H3"/></svg>
+      <span>SpotiFree</span>
+    </div>
+
+    <nav class="side-nav">
+      <button class="side-item" data-nav="home"><svg class="ic"><use href="#i-home"/></svg><span data-i18n="home">Home</span></button>
+      <button class="side-item" data-nav="search"><svg class="ic"><use href="#i-search"/></svg><span data-i18n="search">Search</span></button>
+      <button class="side-item" data-nav="library"><svg class="ic"><use href="#i-library"/></svg><span data-i18n="library">Library</span></button>
+      <button class="side-item" id="navImport"><svg class="ic"><use href="#i-link"/></svg><span data-i18n="import">Import</span></button>
+    </nav>
+
+    <div class="side-sep"><span data-i18n="playlists">Playlists</span>
+      <button class="icon-btn sm" id="btnNewPlaylist" title="New playlist"><svg class="ic"><use href="#i-plus"/></svg></button>
+    </div>
+    <div class="side-playlists" id="sidePlaylists"></div>
+
+    <div class="side-foot">
+      <button class="side-item" data-nav="settings"><svg class="ic"><use href="#i-settings"/></svg><span data-i18n="settings">Settings</span></button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main id="main">
+    <header id="topbar">
+      <button class="icon-btn" id="btnBack" hidden><svg class="ic"><use href="#i-chev-left"/></svg></button>
+      <div class="tb-title" id="tbTitle">Home</div>
+      <div class="tb-actions" id="tbActions"></div>
+    </header>
+
+    <div id="scroller">
+      <div id="ptr"><svg class="ic"><use href="#i-refresh"/></svg></div>
+      <div id="view"></div>
+      <div class="bottom-spacer"></div>
+    </div>
+  </main>
+
+  <!-- ── Mini player ── -->
+  <div id="mini" hidden>
+    <div class="mini-progress"><i id="miniBar"></i></div>
+    <button class="mini-art" id="miniArt" aria-label="Open player">
+      <img id="miniImg" alt="" />
+      <span class="mini-eq"><i></i><i></i><i></i></span>
+    </button>
+    <div class="mini-meta" id="miniMeta">
+      <div class="mini-title" id="miniTitle">—</div>
+      <div class="mini-sub" id="miniSub">—</div>
+    </div>
+    <div class="mini-ctrls">
+      <button class="icon-btn" id="miniLike" aria-label="Like"><svg class="ic"><use href="#i-heart"/></svg></button>
+      <button class="icon-btn" id="miniPrev" aria-label="Previous"><svg class="ic"><use href="#i-prev"/></svg></button>
+      <button class="play-btn sm" id="miniPlay" aria-label="Play/Pause"><svg class="ic"><use href="#i-play"/></svg></button>
+      <button class="icon-btn" id="miniNext" aria-label="Next"><svg class="ic"><use href="#i-next"/></svg></button>
+    </div>
+  </div>
+
+  <!-- ── Bottom nav (mobile) ── -->
+  <nav id="bottomnav">
+    <button class="bn-item" data-nav="home"><svg class="ic"><use href="#i-home"/></svg><span data-i18n="home">Home</span></button>
+    <button class="bn-item" data-nav="search"><svg class="ic"><use href="#i-search"/></svg><span data-i18n="search">Search</span></button>
+    <button class="bn-item" data-nav="library"><svg class="ic"><use href="#i-library"/></svg><span data-i18n="library">Library</span></button>
+    <button class="bn-item" data-nav="settings"><svg class="ic"><use href="#i-settings"/></svg><span data-i18n="settings">Settings</span></button>
+  </nav>
+</div>
+
+<!-- ══════════════════ FULL PLAYER ══════════════════ -->
+<div id="fullPlayer" class="overlay" hidden>
+  <div class="fp-bg" id="fpBg"></div>
+  <div class="fp-inner">
+    <div class="fp-head">
+      <button class="icon-btn" id="fpClose"><svg class="ic"><use href="#i-chev-down"/></svg></button>
+      <div class="fp-head-txt">
+        <div class="fp-from" id="fpFrom">Now playing</div>
+        <div class="fp-title" id="fpTitle">—</div>
+      </div>
+      <button class="icon-btn" id="fpQueue"><svg class="ic"><use href="#i-library"/></svg></button>
+    </div>
+
+    <div class="fp-art-wrap" id="fpArtWrap">
+      <img id="fpArt" alt="" />
+    </div>
+
+    <div class="fp-info">
+      <div class="fp-song" id="fpSong">—</div>
+      <div class="fp-channel" id="fpChannel">—</div>
+    </div>
+
+    <div class="fp-actions">
+      <button class="icon-btn" id="fpDislike" title="Dislike"><svg class="ic"><use href="#i-ban"/></svg></button>
+      <button class="icon-btn big" id="fpLike" title="Like"><svg class="ic"><use href="#i-heart"/></svg></button>
+      <button class="icon-btn" id="fpAdd" title="Add to playlist"><svg class="ic"><use href="#i-list-plus"/></svg></button>
+    </div>
+
+    <div class="fp-seek">
+      <input type="range" id="fpSeek" min="0" max="1000" value="0" step="1" aria-label="Seek" />
+      <div class="fp-times"><span id="fpCur">0:00</span><span id="fpDur">0:00</span></div>
+    </div>
+
+    <div class="fp-controls">
+      <button class="icon-btn" id="fpShuffle" title="Shuffle"><svg class="ic"><use href="#i-shuffle"/></svg></button>
+      <button class="icon-btn xl" id="fpPrev" title="Previous"><svg class="ic"><use href="#i-prev"/></svg></button>
+      <button class="play-btn xl" id="fpPlay" title="Play/Pause"><svg class="ic"><use href="#i-play"/></svg></button>
+      <button class="icon-btn xl" id="fpNext" title="Next"><svg class="ic"><use href="#i-next"/></svg></button>
+      <button class="icon-btn" id="fpRepeat" title="Repeat"><svg class="ic"><use href="#i-repeat"/></svg></button>
+    </div>
+
+    <div class="fp-extra">
+      <button class="icon-btn" id="fpTimer" title="Sleep timer"><svg class="ic"><use href="#i-timer"/></svg></button>
+      <div class="fp-vol">
+        <button class="icon-btn" id="fpMute"><svg class="ic"><use href="#i-volume"/></svg></button>
+        <input type="range" id="fpVol" min="0" max="100" value="80" aria-label="Volume" />
+      </div>
+      <button class="icon-btn" id="fpMini" title="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ QUEUE PANEL ══════════════════ -->
+<div id="queuePanel" class="sheet" hidden>
+  <div class="sheet-head">
+    <div>
+      <div class="sheet-title" data-i18n="queue">Queue</div>
+      <div class="sheet-sub" id="qSub"></div>
+    </div>
+    <button class="icon-btn" id="qClose"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="sheet-body" id="qBody"></div>
+</div>
+
+<!-- ══════════════════ GENERIC SHEET / MODAL ══════════════════ -->
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-head">
+    <div class="sheet-title" id="sheetTitle">—</div>
+    <button class="icon-btn" id="sheetClose"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+</div>
+<div id="scrim" hidden></div>
+
+<!-- ══════════════════ TOASTS ══════════════════ -->
+<div id="toasts"></div>
+
+<!-- ══════════════════ HIDDEN YOUTUBE PLAYERS ══════════════════ -->
+<div id="ytHost" aria-hidden="true">
+  <div id="ytP0"></div>
+  <div id="ytP1"></div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api" async></script>
+<script type="module" src="assets/js/app.js"></script>
+<noscript><p style="padding:24px;font-family:sans-serif">SpotiFree needs JavaScript enabled.</p></noscript>
+</body>
+</html>

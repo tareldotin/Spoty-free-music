@@ -1,0 +1,25 @@
+{
+  "name": "SpotiFree — Free YouTube Music",
+  "short_name": "SpotiFree",
+  "description": "100% free music player powered by YouTube. No login, no ads, no server — everything stays on your device.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "categories": ["music", "entertainment"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Import a YouTube link", "short_name": "Import", "url": "./#/home?import=1", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Search", "short_name": "Search", "url": "./#/search" },
+    { "name": "Liked songs", "short_name": "Liked", "url": "./#/auto/liked" }
+  ]
+}
